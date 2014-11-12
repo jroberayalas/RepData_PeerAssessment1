@@ -1,13 +1,9 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
-```{r, echo=TRUE}
+
+```r
 # Read data
 data <- read.csv("activity.csv")
 
@@ -17,25 +13,61 @@ data$date <- ymd(data$date)
 
 # Transform dataset to tbl_df format using the dplyr library
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:lubridate':
+## 
+##     intersect, setdiff, union
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 data <- tbl_df(data)
 ```
 
 ## What is mean total number of steps taken per day?
-```{r, echo=TRUE}
+
+```r
 # Make a histogram of the total number of steps taken each day
 library(ggplot2)
 qplot(x = steps, data = data, binwidth = 30)
+```
 
+![](./PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+
+```r
 # Calculate and report the mean and median total number of steps taken per day
 # Mean
 with(data, mean(steps, na.rm = TRUE))
+```
 
+```
+## [1] 37.3826
+```
+
+```r
 # Median
 with(data, median(steps, na.rm = TRUE))
 ```
 
+```
+## [1] 0
+```
+
 ## What is the average daily activity pattern?
-```{r, echo=TRUE}
+
+```r
 # Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 # Group data by interval and summarise the mean of the steps
 average.steps <- data %>%
@@ -47,7 +79,11 @@ names(average.steps) <- c("interval", "ave.step")
 q <- qplot(x = interval, y = ave.step, data = average.steps, geom = "line",
            xlab = "Interval", ylab = "Average number of steps")
 q
+```
 
+![](./PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+
+```r
 # Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 max.steps <- which.max(average.steps[ , 2])
 max.interval <- average.steps[ , 1][max.steps]
@@ -55,17 +91,32 @@ max.interval <- average.steps[ , 1][max.steps]
 q + geom_vline(aes(xintercept = max.interval), col = "red", size = 1)
 ```
 
-The `r max.interval`-minute interval contains the maximum number of steps on average across all the days in the dataset.
+![](./PA1_template_files/figure-html/unnamed-chunk-3-2.png) 
+
+The 835-minute interval contains the maximum number of steps on average across all the days in the dataset.
 
 ## Imputing missing values
-```{r, echo=TRUE}
+
+```r
 # Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 summary(data)
 ```
 
+```
+##      steps             date               interval     
+##  Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0  
+##  1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8  
+##  Median :  0.00   Median :2012-10-31   Median :1177.5  
+##  Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5  
+##  3rd Qu.: 12.00   3rd Qu.:2012-11-15   3rd Qu.:1766.2  
+##  Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0  
+##  NA's   :2304
+```
+
 From the summary, we can observe that there are 2304 missing values (NAs) within the **steps** variable. The other two variables (**date** and **interval**) have no NAs.
 
-```{r, echo=TRUE}
+
+```r
 # Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
 # Create a new dataset that is equal to the original dataset but with the missing data filled in.
