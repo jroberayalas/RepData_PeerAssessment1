@@ -29,9 +29,11 @@ qplot(x = steps, data = data, binwidth = 30)
 # Calculate and report the mean and median total number of steps taken per day
 # Mean
 mean.value <- with(data, mean(steps, na.rm = TRUE))
+mean.value
 
 # Median
 median.value <- with(data, median(steps, na.rm = TRUE))
+median.value
 ```
 
 The mean total number of steps taken per day is **`r mean.value`**.
@@ -111,9 +113,11 @@ qplot(x = steps, data = data, binwidth = 30)
 # Calculate and report the mean and median total number of steps taken per day
 # Mean
 mean.value <- with(data, mean(steps, na.rm = TRUE))
+mean.value
 
 # Median
 median.value <- with(data, median(steps, na.rm = TRUE))
+median.value
 ```
 
 Using the new dataset, the mean total number of steps taken per day is **`r mean.value`**. Also, the median total number of steps taken per day is **`r median.value`**. The median value remains the same but the mean value is reduced by 4.383055 units. A statistical analysis should be performed to determine if this difference is statistically significant. Imputing any missing data will provide 
