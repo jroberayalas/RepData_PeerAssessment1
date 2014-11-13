@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 ## Loading and preprocessing the data
@@ -13,26 +18,6 @@ data$date <- ymd(data$date)
 
 # Transform dataset to tbl_df format using the dplyr library
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:lubridate':
-## 
-##     intersect, setdiff, union
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 data <- tbl_df(data)
 ```
 
@@ -44,7 +29,7 @@ library(ggplot2)
 qplot(x = steps, data = data, binwidth = 30)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 ```r
 # Calculate and report the mean and median total number of steps taken per day
@@ -74,7 +59,7 @@ q <- qplot(x = interval, y = ave.step, data = average.steps, geom = "line",
 q
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 ```r
 # Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -84,7 +69,7 @@ max.interval <- average.steps[ , 1][max.steps]
 q + geom_vline(aes(xintercept = max.interval), col = "red", size = 1)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-3-2.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-2.png) 
 
 The **835**-minute interval contains the maximum number of steps on average across all the days in the dataset.
 
@@ -233,7 +218,7 @@ summary(data)
 qplot(x = steps, data = data, binwidth = 30)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
 ```r
 # Calculate and report the mean and median total number of steps taken per day
@@ -267,5 +252,5 @@ q <- qplot(x = interval, y = ave.step, data = data.by.part,
 q
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
