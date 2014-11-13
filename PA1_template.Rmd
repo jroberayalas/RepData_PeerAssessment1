@@ -73,8 +73,8 @@ From the summary, we can observe that there are 2304 missing values (NAs) within
 NAs.by.date <- data %>%
     group_by(date) %>%
     summarise(sum(is.na(steps)))
-NAs.by.date
 names(NAs.by.date) <- c("date", "NAs")
+NAs.by.date
 ```
 
 Futhermore, we can identify when the NAs were recorded. These belong to **8** days of inactivity on:
